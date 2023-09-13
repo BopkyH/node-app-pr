@@ -1,11 +1,15 @@
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '../../config/database.js'; // Убедитесь, что путь правильный
+
 class Post extends Model {}
 
 Post.init({
     title: DataTypes.STRING,
     content: DataTypes.TEXT,
+    userId: DataTypes.INTEGER
 }, {
-    sequelize,
+    sequelize, // Экземпляр sequelize
     modelName: 'Post',
 });
 
-Post.belongsTo(User);  // Establishes a many-to-one relationship between Post and User
+export default Post;

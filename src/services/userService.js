@@ -1,4 +1,6 @@
 import User from '../models/user.js';
+import Post from '../models/post.js';
+import { Op } from 'sequelize';
 
 // Fetch all users
 export const getAllUsers = async () => {
@@ -8,6 +10,15 @@ export const getAllUsers = async () => {
         console.error('Error fetching all users:', error);
         throw error;
     }
+};
+
+export const getUsersWithPosts = async () => {
+    return await User.findAll({
+        include: [{
+            model: Post,
+            as: 'posts'
+        }]
+    });
 };
 
 // Fetch a user by ID
@@ -23,6 +34,20 @@ export const getUserById = async (id) => {
 // Create a new user
 export const createUser = async (user) => {
     try {
+        // Проверка на существование пользователя с таким же именем или email
+        const existingUser = await User.findOne({
+            where: {
+                [Op.or]: [
+                    { name: user.name },
+                    { email: user.email }
+                ]
+            }
+        });
+
+        if (existingUser) {
+            throw new Error('User with this name or email already exists');
+        }
+
         return await User.create(user);
     } catch (error) {
         console.error('Error creating user:', error);

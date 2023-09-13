@@ -44,3 +44,12 @@ export const uploadImage = (req, res) => {
     if (!req.file) return res.status(400).send('No file uploaded');
     res.status(200).send('File uploaded');
 };
+
+export const getAllUsersWithPosts = async (req, res) => {
+    try {
+        const users = await userService.getUsersWithPosts();
+        res.json(users);
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
+};

@@ -20,6 +20,17 @@ router.get('/', userController.getAllUsers);
 
 /**
  * @swagger
+ * /users/with-posts:
+ *   get:
+ *     summary: Retrieve a list of all users with their posts
+ *     responses:
+ *       200:
+ *         description: A list of users with their posts
+ */
+router.get('/with-posts', userController.getAllUsersWithPosts);
+
+/**
+ * @swagger
  * /users/{id}:
  *   get:
  *     summary: Retrieve a user by ID
@@ -122,6 +133,7 @@ router.delete('/:id', userController.deleteUser);
  *         description: Uploaded
  */
 router.post('/upload', upload.single('image'), userController.uploadImage);
+
 
 // Exporting the router
 export default router;
