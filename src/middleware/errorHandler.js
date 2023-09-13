@@ -1,4 +1,5 @@
-module.exports = (err, req, res, next) => {
+// Exporting the error handling middleware
+export default (err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
 };

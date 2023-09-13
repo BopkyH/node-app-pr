@@ -1,7 +1,9 @@
-const express = require('express');
-const multer = require('multer');
-const userController = require('../controllers/userController');
+// Importing required modules
+import express from 'express';
+import multer from 'multer';
+import * as userController from '../controllers/userController.js';
 
+// Initializing router and multer
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
@@ -31,28 +33,6 @@ router.get('/', userController.getAllUsers);
  *         description: A user object
  */
 router.get('/:id', userController.getUserById);
-
-// /**
-//  * @swagger
-//  * /users:
-//  *   post:
-//  *     summary: Create a new user
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             type: object
-//  *             properties:
-//  *               name:
-//  *                 type: string
-//  *               email:
-//  *                 type: string
-//  *     responses:
-//  *       201:
-//  *         description: Created
-//  */
-// router.post('/', userController.createUser);
 
 /**
  * @swagger
@@ -143,4 +123,5 @@ router.delete('/:id', userController.deleteUser);
  */
 router.post('/upload', upload.single('image'), userController.uploadImage);
 
-module.exports = router;
+// Exporting the router
+export default router;

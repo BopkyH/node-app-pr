@@ -1,46 +1,42 @@
-const express = require('express');
-const xmlparser = require('express-xml-bodyparser');
-
-const userRoutes = require('./routes/userRoutes');
-const errorHandler = require('./middleware/errorHandler');
+import express from 'express';
+import sequelize from '../config/database.js';
+import { port } from '../config/appConfig.js';
+import userRoutes from './routes/userRoutes.js';
+import errorHandler from './middleware/errorHandler.js';
+import applyMiddlewares from './middleware/middlewares.js';
+import setupSwagger from '../swagger/swagger.js';
 
 const app = express();
-const port = 3000;
 
-// Добавление middleware
-app.use(express.json());
-app.use(xmlparser()); // Использование xmlparser
-
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
-
-const swaggerOptions = {
-    swaggerDefinition: {
-        info: {
-            title: "User Management API",
-            description: "User Management API Information",
-            contact: {
-                name: "Developer"
-            },
-            servers: ["http://localhost:3000"]
-        }
-    },
-    apis: ["./src/routes/*.js"]
+// Test database connection
+const testConnection = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
 };
+testConnection();
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// Use middleware
+applyMiddlewares(app);
 
-app.use(express.json());
+// Configure Swagger
+setupSwagger(app);
 
-// Добавленный обработчик для корневого маршрута
+// Handler for the root route
 app.get('/', (req, res) => {
     res.send('Welcome to the User API');
 });
 
+// Routes
 app.use('/users', userRoutes);
+
+// Error Handler
 app.use(errorHandler);
 
+// Server startup
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });

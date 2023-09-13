@@ -1,32 +1,60 @@
-const users = require('../models/userModel');
+import User from '../models/user.js';
 
-exports.getAllUsers = () => {
-    return users;
-};
-
-exports.getUserById = (id) => {
-    return users.find(u => u.id === parseInt(id));
-};
-
-exports.createUser = (user) => {
-    user.id = users.length + 1;
-    users.push(user);
-    return user;
-};
-
-exports.updateUser = (id, updatedUser) => {
-    const user = users.find(u => u.id === parseInt(id));
-    if (user) {
-        user.name = updatedUser.name;
-        user.email = updatedUser.email;
+// Fetch all users
+export const getAllUsers = async () => {
+    try {
+        return await User.findAll();
+    } catch (error) {
+        console.error('Error fetching all users:', error);
+        throw error;
     }
-    return user;
 };
 
-exports.deleteUser = (id) => {
-    const userIndex = users.findIndex(u => u.id === parseInt(id));
-    if (userIndex !== -1) {
-        return users.splice(userIndex, 1)[0];
+// Fetch a user by ID
+export const getUserById = async (id) => {
+    try {
+        return await User.findByPk(id);
+    } catch (error) {
+        console.error(`Error fetching user by ID ${id}:`, error);
+        throw error;
     }
-    return null;
+};
+
+// Create a new user
+export const createUser = async (user) => {
+    try {
+        return await User.create(user);
+    } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+    }
+};
+
+// Update an existing user
+export const updateUser = async (id, updatedUser) => {
+    try {
+        const user = await User.findByPk(id);
+        if (user) {
+            return await user.update(updatedUser);
+        }
+        return null;
+    } catch (error) {
+        console.error(`Error updating user with ID ${id}:`, error);
+        throw error;
+    }
+};
+
+// Delete a user
+export const deleteUser = async (id) => {
+    try {
+        const user = await User.findByPk(id);
+        if (user) {
+            await user.destroy();
+            return user;
+        }
+        return null;
+    } catch (error) {
+        console.error(`Error deleting user with ID ${id}:`, error);
+        throw error;
+    }
 };

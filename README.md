@@ -1,121 +1,120 @@
-## Автор
+## Author
 
 Dmytro Kerimet  
 Email: [dmytro.kerimet@apriorit.com](mailto:dmytro.kerimet@apriorit.com)
 
-## Описание
+## Description
 
-Это RESTful API для управления пользователями. Он предоставляет следующие возможности:
+This is a RESTful API for user management. It provides the following capabilities:
 
-1. Получение списка всех пользователей.
-2. Получение информации о конкретном пользователе по его ID.
-3. Создание новых пользователей.
-4. Обновление информации о существующих пользователях.
-5. Удаление пользователей.
-6. Загрузка изображений (например, аватаров пользователей).
+1. Retrieve a list of all users.
+2. Get information about a specific user by their ID.
+3. Create new users.
+4. Update information about existing users.
+5. Delete users.
+6. Upload images (e.g., user avatars).
 
-## Как запустить проект с нуля
+## How to Start the Project from Scratch
 
-1. Клонируйте репозиторий:
+1. Clone the repository:
 
     ```bash
-    git clone <URL репозитория>
+    git clone <Repository URL>
     ```
 
-2. Перейдите в директорию проекта:
+2. Navigate to the project directory:
 
     ```bash
     cd <my-express-app>
     ```
 
-3. Установите зависимости:
+3. Install dependencies:
 
     ```bash
     npm install
     ```
 
-4. Запустите сервер:
+4. Start the server:
 
     ```bash
     node src/app.js
     ```
 
-   или если вы используете nodemon:
+   or if you are using nodemon:
 
     ```bash
     npm start
     ```
 
-## Как пользоваться API
+## How to Use the API
 
-## На проэкте установлен Swagger
-- **URL:** `http://localhost:3000/api-docs
+## Swagger is Installed on the Project
+- **URL:** `http://localhost:3000/api-docs`
 
-### Получение списка всех пользователей
+### Retrieve a List of All Users
 
-- **Метод:** `GET`
+- **Method:** `GET`
 - **URL:** `http://localhost:3000/users`
 
-### Получение информации о пользователе по ID
+### Get Information About a User by ID
 
-- **Метод:** `GET`
+- **Method:** `GET`
 - **URL:** `http://localhost:3000/users/{id}`
 
-### Создание нового пользователя
+### Create a New User
 
-- **Метод:** `POST`
+- **Method:** `POST`
 - **URL:** `http://localhost:3000/users`
-- **Тело запроса:** JSON объект с информацией о пользователе.
+- **Request Body:** JSON object with user information.
 
-### Обновление информации о пользователе
+### Update Information About a User
 
-- **Метод:** `PUT`
+- **Method:** `PUT`
 - **URL:** `http://localhost:3000/users/{id}`
-- **Тело запроса:** JSON объект с новой информацией о пользователе.
+- **Request Body:** JSON object with new user information.
 
-### Удаление пользователя
+### Delete a User
 
-- **Метод:** `DELETE`
+- **Method:** `DELETE`
 - **URL:** `http://localhost:3000/users/{id}`
 
-### Загрузка изображения
+### Upload an Image
 
-- **Метод:** `POST`
+- **Method:** `POST`
 - **URL:** `http://localhost:3000/users/upload`
-- **Тип данных:** `multipart/form-data`
-- **Параметр:** `image` (файл изображения)
+- **Data Type:** `multipart/form-data`
+- **Parameter:** `image` (image file)
 
-## Примеры с использованием `curl`
+## Examples Using `curl`
 
-### Получение списка всех пользователей
+### Retrieve a List of All Users
 
 ```bash
 curl -X GET http://localhost:3000/users
- ```
+```
 
-##  Получение информации о пользователе с ID=1
+### Get Information About a User with ID=1
 
 ```bash
 curl -X GET http://localhost:3000/users/1
- ```
+```
 
-## Создание нового пользователя
+### Create a New User
 ```bash
 curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"John\", \"email\":\"john@example.com\"}" http://localhost:3000/users
- ```
+```
 
-## Обновление информации о пользователе с ID=1
+### Update Information About a User with ID=1
 ```bash
 curl -X PUT -H "Content-Type: application/json" -d "{\"name\":\"John Updated\", \"email\":\"john.updated@example.com\"}" http://localhost:3000/users/1
- ```
+```
 
-## Удаление пользователя с ID=1
+### Delete a User with ID=1
 ```bash
 curl -X DELETE http://localhost:3000/users/1
+```
 
- ```
-
-## Загрузка изображения
+### Upload an Image
 ```bash
 curl -X POST -F "image=@path/to/image.jpg" http://localhost:3000/users/upload
- ```
+```

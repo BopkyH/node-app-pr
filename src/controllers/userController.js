@@ -1,38 +1,46 @@
-const userService = require('../services/userService');
-const validation = require('../utils/validation');
+// Importing dependencies
+import * as userService from '../services/userService.js';
+import * as validation from '../utils/validation.js';
 
-exports.getAllUsers = (req, res) => {
-    const users = userService.getAllUsers();
+// Fetch all users
+export const getAllUsers = async (req, res) => {
+    const users = await userService.getAllUsers();
+    // console.log(users);  // Добавьте эту строку для отладки
     res.json(users);
 };
 
-exports.getUserById = (req, res) => {
-    const user = userService.getUserById(req.params.id);
+// Fetch a user by ID
+export const getUserById = async (req, res) => {
+    const user = await userService.getUserById(req.params.id);
     if (!user) return res.status(404).send('User not found');
     res.json(user);
 };
 
-exports.createUser = (req, res) => {
+// Create a new user
+export const createUser = async (req, res) => {
     const { error } = validation.validateUser(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const user = userService.createUser(req.body);
+    const user = await userService.createUser(req.body);
     res.status(201).json(user);
 };
 
-exports.updateUser = (req, res) => {
-    const user = userService.updateUser(req.params.id, req.body);
+// Update an existing user
+export const updateUser = async (req, res) => {
+    const user = await userService.updateUser(req.params.id, req.body);
     if (!user) return res.status(404).send('User not found');
     res.json(user);
 };
 
-exports.deleteUser = (req, res) => {
-    const user = userService.deleteUser(req.params.id);
+// Delete a user
+export const deleteUser = async (req, res) => {
+    const user = await userService.deleteUser(req.params.id);
     if (!user) return res.status(404).send('User not found');
     res.json(user);
 };
 
-exports.uploadImage = (req, res) => {
+// Upload an image
+export const uploadImage = (req, res) => {
     if (!req.file) return res.status(400).send('No file uploaded');
     res.status(200).send('File uploaded');
 };
