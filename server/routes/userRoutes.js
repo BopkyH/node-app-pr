@@ -1,11 +1,36 @@
 // Importing required modules
 import express from 'express';
+import * as authController from '../controllers/authController.js'; // Импортируйте ваш контроллер аутентификации
 import multer from 'multer';
 import * as userController from '../controllers/userController.js';
 
 // Initializing router and multer
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
+
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Authenticate a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Authenticated
+ *       401:
+ *         description: Unauthorized
+ */
+router.post('/login', authController.authenticateUser);
 
 /**
  * @swagger

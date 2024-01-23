@@ -37,7 +37,7 @@ This is a RESTful API for user management. It provides the following capabilitie
 4. Start the server:
 
     ```bash
-    node src/app.js
+    node server/app.js
     ```
 
    or if you are using nodemon:

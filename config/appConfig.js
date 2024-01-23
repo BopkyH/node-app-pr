@@ -12,5 +12,5 @@ export const swaggerOptions = {
             servers: ["http://localhost:3000"]
         }
     },
-    apis: ["./src/routes/*.js"]
+    apis: ["./server/routes/*.js"]
 };
