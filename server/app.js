@@ -8,8 +8,11 @@ import errorHandler from './middleware/errorHandler.js';
 import applyMiddlewares from './middleware/middlewares.js';
 import setupSwagger from '../swagger/swagger.js';
 import path from 'path';
+import cors from 'cors-express';
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 
 // Определение __dirname для ES модуля
 const __filename = fileURLToPath(import.meta.url);
@@ -43,7 +46,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRoutes);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../client/public', 'index.html'));
 });
 
 // Error Handler

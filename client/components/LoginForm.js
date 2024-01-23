@@ -10,7 +10,7 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/login', { username, password });
+            const response = await axios.post('/login', { username, password });
             if (response.data.success) {
                 history.push('/users');
             }

@@ -5,7 +5,6 @@ import * as validation from '../utils/validation.js';
 // Fetch all users
 export const getAllUsers = async (req, res) => {
     const users = await userService.getAllUsers();
-    // console.log(users);  // Добавьте эту строку для отладки
     res.json(users);
 };
 
