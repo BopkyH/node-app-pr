@@ -14,11 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Определение __dirname для ES модуля
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Test database connection
 const testConnection = async () => {
     try {
         await sequelize.authenticate();
